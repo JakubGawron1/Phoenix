@@ -1,3 +1,5 @@
-fn main() {
-    println!("Hello, world!");
+use structopt::StructOpt;
+#[tokio::main]
+async fn main() {
+    
 }
