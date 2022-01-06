@@ -3,3 +3,5 @@ Cargo.lock
 
 # Ignore folders
 target
+bundled
+build

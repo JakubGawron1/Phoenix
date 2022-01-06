@@ -1,2 +1,2 @@
 [alias]
-kmake = "run --manifest-path ./phoenix-builder/Cargo.toml --"
+kmake = "run --release --manifest-path ./phoenix-builder/Cargo.toml --"

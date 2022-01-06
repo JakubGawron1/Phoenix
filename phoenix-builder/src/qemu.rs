@@ -1,0 +1,51 @@
+use crate::{Arch, BUNDLED_DIR};
+
+use std::process::Command;
+use std::error::Error;
+
+pub fn run_qemu(arch: Arch)-> Result<(), Box<dyn Error>> {
+    let mut project_arch: &str = "x86_64";
+    let mut image: &str = "DEBUGX64_OVMF.fd";
+
+    if arch == Arch::AArch64{
+        project_arch = "aarch64";
+        image = "DEBUGAARCH64_QEMU_EFI.fd";
+    }
+
+    let  qemu_binary = format!("qemu-system-{}", project_arch);
+
+    let uefi_image = format!("{}/ovmf/{}",BUNDLED_DIR, image);
+
+    let phoenix_image = format!("build/{}/phoenix.img",project_arch);
+
+    let phoenix_image_command = format!("file={}", phoenix_image);
+
+    let mut run_command = Command::new(qemu_binary);
+
+    if arch == Arch::AArch64{
+
+        run_command.arg("-machine").arg("virt");
+
+        run_command.arg("-cpu").arg("cortex-a72");
+
+        run_command.arg("-nographic");
+
+    }
+
+    run_command.arg("-bios").arg(uefi_image);
+
+    run_command.arg("-drive").arg(phoenix_image_command);
+
+    if !run_command
+        .status()
+        .expect(&format!("Failde to run {:#?}", run_command))
+        .success()
+        {
+            panic!("Failed to ru qemu");
+        }
+
+
+ Ok(())
+
+
+}
