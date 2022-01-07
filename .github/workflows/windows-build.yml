@@ -1,4 +1,4 @@
-name: Phoenix
+name: Windows build
 
 on:
   push:
@@ -11,7 +11,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -36,6 +36,3 @@ jobs:
       with:
         name: Phoenix AArch64
         path: ./build/aarch64/phoenix.img
-
-
-
