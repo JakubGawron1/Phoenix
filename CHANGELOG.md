@@ -23,3 +23,5 @@
 ## 07.01.2022 (part 1)
 - Added github workfows for `Mac os`, `Windows` and `Ubuntu`
 - Better parse path to target in `phoenix-builder`
+- Added badges about workflows
+- Fix workflows with `rust-toolchain` file

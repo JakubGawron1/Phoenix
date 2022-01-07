@@ -1,6 +1,3 @@
-#[cfg(target_os="windows")]
-compile_error!("Phoenix does not support compilation on non-unix like systems. Please use WSL2");
-
 mod boot;
 mod kernel;
 mod bundled;
