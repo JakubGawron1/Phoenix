@@ -1,4 +1,4 @@
-name: Phoenix
+name: Windows build
 
 on:
   push:

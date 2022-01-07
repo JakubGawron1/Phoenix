@@ -1,5 +1,4 @@
-name: Phoenix
-
+name: MacOS build
 on:
   push:
     branches: [ master ]
