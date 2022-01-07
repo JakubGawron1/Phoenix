@@ -15,7 +15,7 @@ pub fn build_kernel(arch: Arch, build_type: BuildType){
 
     let target: &str = "-phoenix.json";
 
-    let target_triple = format!("{}{}{}",target_directory, target_arch, target);
+    let target_triple = format!("./cargo/{}-phoenix.json", target_arch);
 
     build_command.current_dir("phoenix-kernel");
 

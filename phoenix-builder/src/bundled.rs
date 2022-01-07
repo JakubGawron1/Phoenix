@@ -6,7 +6,7 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Write;
 
-pub async fn update_ovmf() -> Result<(), Box<dyn Error>> {
+async fn update_ovmf() -> Result<(), Box<dyn Error>> {
     let ovmf_out_dir = Path::new(BUNDLED_DIR).join("ovmf");
 
     fs::create_dir_all(&ovmf_out_dir)?;

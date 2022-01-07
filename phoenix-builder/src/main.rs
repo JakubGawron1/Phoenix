@@ -136,7 +136,7 @@ async fn main() -> anyhow::Result<()> {
                 println!("Success built in {:?}", now);
             }
             PhoenixCliCommand::Update => {
-                bundled::update_ovmf().await.unwrap();
+                bundled::download_ovmf_prebuilt().await.unwrap();
                 
             }
             PhoenixCliCommand::Format => {

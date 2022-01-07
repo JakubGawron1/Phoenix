@@ -19,3 +19,7 @@
 - Support for command line arguments has been added for `phoenix-builder` (all commands are available [here]())
 - From now on you can build and boot the kernel and bootloader in [Qemu](https://www.qemu.org/) with `phoenix-builder`
 - Fix the dates in `CHANGELOG.md (I'm still alive in 2021)
+
+## 07.01.2022 (part 1)
+- Added github workfows for `Mac os`, `Windows` and `Ubuntu`
+- Better parse path to target in `phoenix-builder`

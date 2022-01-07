@@ -11,9 +11,8 @@ pub fn build_bootloader(arch: Arch, build_type: BuildType){
         target_arch = "aarch64";
     }
 
-    let target: &str = "-unknown-uefi";
 
-    let  target_triple = format!("{}{}", target_arch, target);
+    let  target_triple = format!("{}-unknown-uefi", target_arch);
 
     build_command.current_dir("phoenix-bootloader");
 
