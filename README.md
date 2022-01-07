@@ -14,10 +14,10 @@
 # Features
 > Here are the features I would like to have in the project. You can find the latest changes (added together with kommit) in the file [CHANGELOG.md](CHANGELOG.md) 
 - [x] A working builder for Phoenix (`phoenix-builder)
-- [] Limine chainloader for X86_64 
-- [] Print from bootloader 
-- [] Working bootloader
-- [] Print from kernel
+- [ ] Limine chainloader for X86_64 
+- [ ] Print from bootloader 
+- [ ] Working bootloader
+- [ ] Print from kernel
 # How to build
 Building Phoenix is not difficult. You can build Phoenix on any operating system(`Linux`, `MacOS` and `Windows`), although it is recommended to build it on Linux. You can find more information [here]()
 
