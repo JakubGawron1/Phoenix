@@ -30,3 +30,4 @@
 - Added license
 - Added more badges
 - Added Icon
+- Added description and other necessary information to `README.md` 
