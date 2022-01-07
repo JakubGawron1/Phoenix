@@ -25,3 +25,8 @@
 - Better parse path to target in `phoenix-builder`
 - Added badges about workflows
 - Fix workflows with `rust-toolchain` file
+
+## 07.01.2022 (part 2)
+- Added license
+- Added more badges
+- Added Icon
