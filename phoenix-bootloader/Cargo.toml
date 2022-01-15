@@ -2,7 +2,13 @@
 name = "phoenix-bootloader"
 version = "0.1.0"
 edition = "2021"
+authors = ["JakubGawron1"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+uefi = "0.14.0"
+uefi-services = "0.11.0"
+rand_core = "0.6.3"
+log = { version = "0.4.14", default-features = false}
+phoenix-logger = {path = "../phoenix-lib/phoenix-logger/"}

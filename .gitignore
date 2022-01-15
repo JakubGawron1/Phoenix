@@ -5,3 +5,7 @@ Cargo.lock
 target
 bundled
 build
+notes
+
+# Ignore files and folders temporarily
+phoenix-lib

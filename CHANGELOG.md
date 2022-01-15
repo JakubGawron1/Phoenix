@@ -31,3 +31,9 @@
 - Added more badges
 - Added Icon
 - Added description and other necessary information to `README.md` 
+
+## 15.01.2021 (part 1)
+- Print to screen from `phoenix-bootloader`
+- Added ASCII INTRO for `phoenix-bootloader`
+- Added `splash.bmp` (will be dislayed on the screen in the future)
+- Added author info to `Cargo.toml` files
