@@ -13,7 +13,7 @@
 
 # Features
 > Here are the features I would like to have in the project. You can find the latest changes (added together with commit) in the file [CHANGELOG.md](CHANGELOG.md) 
-- [x] A working builder for Phoenix (`phoenix-builder)
+- [x] A working builder for Phoenix (`phoenix-builder`)
 - [ ] Limine chainloader for X86_64 
 - [ ] Print from bootloader 
 - [ ] Working bootloader
