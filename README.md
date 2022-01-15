@@ -9,7 +9,7 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/JakubGawron1/Phoenix?label=Total%20Lines)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/JakubGawron1/Phoenix?label=Code%20Size)
 
-**Phoenix(OS)** is a hobby operating system for learning how to create operating systems and later developing in this field.Currently runs on two processor architectures (`X86_64` and `AArch64`) and uses its own bootloader (currently only `uefi` support).
+**Phoenix(OS)** is a hobby operating system for learning how to create operating systems and later developing in this field. Currently runs on two processor architectures (`X86_64` and `AArch64`) and uses its own bootloader (currently only `uefi` support).
 
 # Features
 > Here are the features I would like to have in the project. You can find the latest changes (added together with commit) in the file [CHANGELOG.md](CHANGELOG.md) 
