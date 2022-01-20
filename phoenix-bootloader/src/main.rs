@@ -62,7 +62,12 @@ extern "C" fn efi_main(
    
     system_table.stdout().clear().expect("Failed to clean screen");
 
- arch::main(image, &mut system_table);
+    arch::main(image, &mut system_table);
+ 
+    system_table.stdout().clear().expect("Failed to clean screen");
+ 
+
+
     writeln!(system_table.stdout(), "{}", ASCII_INTRO);
     writeln!(system_table.stdout(), "Phoenix Bootloader v{}, created by {}",env!("CARGO_PKG_VERSION"), env!("CARGO_PKG_AUTHORS"));
     

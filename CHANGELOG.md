@@ -50,3 +50,6 @@
 - Change the size of `splash.bmp`
 - Add a special image on which the changes in BMP display were tested
 
+## 20.01.22 (reapir path)
+- Fix `system_table` mutability
+- Fix Github workflow

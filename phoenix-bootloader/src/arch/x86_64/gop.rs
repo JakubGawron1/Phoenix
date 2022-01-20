@@ -7,10 +7,8 @@ use embedded_graphics::pixelcolor::{Rgb565, RgbColor};
 use tinybmp::Bmp;
 use embedded_graphics::pixelcolor::Rgb888;
 
-pub fn test(image: Handle, system_table: &SystemTable<Boot>) {
-    log::info!("Running graphics output protocol test");
-
-    let bt = system_table.boot_services();
+pub fn test(image: Handle, bt: &BootServices) {
+    log::info!("Running graphics output protocol test");    
 
     if let Ok(gop) = bt.locate_protocol::<GraphicsOutput>() {
         let gop = gop.expect("Warnings encountered while opening GOP");
@@ -21,15 +19,13 @@ pub fn test(image: Handle, system_table: &SystemTable<Boot>) {
         draw_bmp(gop);
 
         // Pause for 10 seconds to allow time to admire the result.
-        bt.stall(10_000_000);
-        
-        
+        bt.stall(10_000_000);     
 
     } else {
         // No tests can be run.
         log::warn!("UEFI Graphics Output Protocol is not supported");
     }
-
+    
 }
 
 // Set a larger graphics mode.
