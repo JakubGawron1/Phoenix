@@ -61,23 +61,29 @@ pub fn clean() -> Result<(), Box<dyn Error>> {
 pub async fn update_limine() -> Result<(), Box<dyn Error>> {
     let limine_out_dir = Path::new(BUNDLED_DIR).join("limine");
 
-    xshell::rm_rf("bundled/limine").unwrap();
+    if cfg!(not(target_os="windows")){
 
-    fs::create_dir_all(&limine_out_dir)?;
+        xshell::rm_rf("bundled/limine").unwrap();
 
-    let mut limine_clone_cmd = Command::new("git");
+        fs::create_dir_all(&limine_out_dir)?;
 
-    limine_clone_cmd.arg("clone").arg(LIMINE_GITHUB_URL);
-    limine_clone_cmd.arg("-b").arg(LIMINE_RELEASE_BRANCH);
+        let mut limine_clone_cmd = Command::new("git");
 
-    limine_clone_cmd.arg("bundled/limine");
+        limine_clone_cmd.arg("clone").arg(LIMINE_GITHUB_URL);
+        limine_clone_cmd.arg("-b").arg(LIMINE_RELEASE_BRANCH);
 
-    if !limine_clone_cmd
-        .status()
-        .expect(&format!("Failed to run {:#?}", limine_clone_cmd))
-        .success()
-    {
-        panic!("Failed to clone the latest prebuilt limine files")
+        limine_clone_cmd.arg("bundled/limine");
+
+        if !limine_clone_cmd
+            .status()
+            .expect(&format!("Failed to run {:#?}", limine_clone_cmd))
+            .success()
+        {
+            panic!("Failed to clone the latest prebuilt limine files")
+        }
+    }
+    else{
+        println!("TODO: Removing limine out dir on windows");
     }
 
     Ok(())
