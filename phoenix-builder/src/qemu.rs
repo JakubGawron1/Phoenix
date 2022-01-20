@@ -18,7 +18,7 @@ pub fn run_qemu(arch: Arch)-> Result<(), Box<dyn Error>> {
 
     let phoenix_image = format!("build/{}/phoenix.img",project_arch);
 
-    let phoenix_image_command = format!("file={}", phoenix_image);
+    let phoenix_image_command = format!("format=raw,file={}", phoenix_image);
 
     let mut run_command = Command::new(qemu_binary);
 

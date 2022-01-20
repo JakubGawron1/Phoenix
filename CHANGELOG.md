@@ -32,15 +32,21 @@
 - Added Icon
 - Added description and other necessary information to `README.md` 
 
-## 15.01.2021 (part 1)
+## 15.01.2022 (part 1)
 - Print to screen from `phoenix-bootloader`
 - Added ASCII INTRO for `phoenix-bootloader`
 - Added `splash.bmp` (will be dislayed on the screen in the future)
 - Added author info to `Cargo.toml` files
 
-## 15.01.2021 (part 2)
+## 15.01.2022 (part 2)
 - Added empty `Makefile`
 - Added empty `build.py` file
 - Added build instructions to `README.md` (first part)
 - Added empty gitpod bash file
+
+## 20.01.2022 (part 1)
+- Successfully display the image in bmp format (only X86_64) `phoenix-bootloader`
+- Add colored subtitles (only X86_64) `phoenix-bootloader`
+- Change the size of `splash.bmp`
+- Add a special image on which the changes in BMP display were tested
 

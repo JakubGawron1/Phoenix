@@ -7,8 +7,12 @@ authors = ["JakubGawron1"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-uefi = "0.14.0"
+uefi = {version ="0.14.0", features = ["exts", "logger", "alloc"]}
 uefi-services = "0.11.0"
 rand_core = "0.6.3"
 log = { version = "0.4.14", default-features = false}
+embedded-graphics = "0.7.1"
 # phoenix-logger = {path = "../phoenix-lib/phoenix-logger/"}
+
+[target.'x86_64-unknown-uefi'.dependencies]
+tinybmp = "0.3.1"
