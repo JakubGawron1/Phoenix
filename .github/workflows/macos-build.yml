@@ -26,4 +26,6 @@ jobs:
       run: cargo kmake build --release --arch x86
     - name: Build kernel and bootloader for AArch64
       run: cargo kmake build --release --arch aarch64
+    - name: Build kernel and bootloader for X86 with Limine
+      run: cargo kmake build --release --arch x86 --bootloader limine
 

@@ -38,7 +38,7 @@ jobs:
       with:
         name: Phoenix AArch64
         path: ./build/aarch64/phoenix.img
-    - name: Upload built image as artifact for AArch64
+    - name: Upload built image as artifact for Phoenix Limine
       uses: actions/upload-artifact@v2
       with:
         name: Phoenix Limine
