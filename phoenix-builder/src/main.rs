@@ -154,8 +154,6 @@ async fn main() -> anyhow::Result<()> {
                     BuildType::Debug
                 };
 
-                bundled::update_limine().await.unwrap();
-
                 boot::build_bootloader(arch, build_type);
 
                 kernel::build_kernel(arch, build_type);
@@ -168,6 +166,7 @@ async fn main() -> anyhow::Result<()> {
             }
             PhoenixCliCommand::Update => {
                 bundled::download_ovmf_prebuilt().await.unwrap();
+                bundled::download_limine_prebuilt().await.unwrap();
                 
             }
             PhoenixCliCommand::Format => {
