@@ -60,11 +60,23 @@ pub fn clean() -> Result<(), Box<dyn Error>> {
 
 pub async fn update_limine() -> Result<(), Box<dyn Error>> {
     let limine_out_dir = Path::new(BUNDLED_DIR).join("limine");
+    let mut remove_in_windows = Command::new("rmdir");
 
-    if cfg!(not(target_os="windows")){
+        if cfg!(target_family="unix"){
 
         xshell::rm_rf("bundled/limine").unwrap();
+        
+        }else{
+            remove_in_windows.arg(&limine_out_dir);
 
+            if !remove_in_windows
+            .status()
+            .expect(&format!("Failed to run {:#?}", remove_in_windows))
+            .success()
+        {
+            panic!("Failed to clone the latest prebuilt limine files")
+        }
+        }
         fs::create_dir_all(&limine_out_dir)?;
 
         let mut limine_clone_cmd = Command::new("git");
@@ -81,10 +93,7 @@ pub async fn update_limine() -> Result<(), Box<dyn Error>> {
         {
             panic!("Failed to clone the latest prebuilt limine files")
         }
-    }
-    else{
-        println!("TODO: Removing limine out dir on windows");
-    }
+    
 
     Ok(())
 }
