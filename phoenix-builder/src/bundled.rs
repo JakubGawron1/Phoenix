@@ -1,10 +1,11 @@
-use crate::{BUNDLED_DIR, PREBUILT_OVMF_URL, OVMF_FILES};
+use crate::{BUNDLED_DIR, PREBUILT_OVMF_URL, OVMF_FILES, LIMINE_GITHUB_URL, LIMINE_RELEASE_BRANCH};
 
 use std::fs;
 use std::path::Path;
 use std::error::Error;
 use std::fs::File;
 use std::io::Write;
+use std::process::Command;
 
 async fn update_ovmf() -> Result<(), Box<dyn Error>> {
     let ovmf_out_dir = Path::new(BUNDLED_DIR).join("ovmf");
@@ -55,4 +56,45 @@ pub fn clean() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 
+}
+
+pub async fn update_limine() -> Result<(), Box<dyn Error>> {
+    let limine_out_dir = Path::new(BUNDLED_DIR).join("limine");
+
+    xshell::rm_rf("bundled/limine").unwrap();
+
+    fs::create_dir_all(&limine_out_dir)?;
+
+    let mut limine_clone_cmd = Command::new("git");
+
+    limine_clone_cmd.arg("clone").arg(LIMINE_GITHUB_URL);
+    limine_clone_cmd.arg("-b").arg(LIMINE_RELEASE_BRANCH);
+
+    limine_clone_cmd.arg("bundled/limine");
+
+    if !limine_clone_cmd
+        .status()
+        .expect(&format!("Failed to run {:#?}", limine_clone_cmd))
+        .success()
+    {
+        panic!("Failed to clone the latest prebuilt limine files")
+    }
+
+    Ok(())
+}
+
+/// Run [update_limine] if the limine prebuilt files do
+/// not exist.
+///
+/// **Note**: To update the limine prebuilt files run `cargo boot update`.
+pub async fn download_limine_prebuilt() -> Result<(), Box<dyn Error>> {
+    let build_dir = Path::new(BUNDLED_DIR).join("limine");
+
+    if !build_dir.exists() {
+        update_limine().await?;
+
+        return Ok(());
+    }
+
+    Ok(())
 }

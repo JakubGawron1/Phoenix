@@ -1,0 +1,1 @@
+sudo apt update && sudo apt upgrade && sudo apt install qemu qemu-system-x86 qemu-system-aarch64 make

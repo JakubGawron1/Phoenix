@@ -26,6 +26,8 @@ jobs:
       run: cargo kmake build --release --arch x86
     - name: Build kernel and bootloader for AArch64
       run: cargo kmake build --release --arch aarch64
+    - name: Build kernel and bootloader for X86 with Limine
+      run: cargo kmake build --release --arch x86 --bootloader limine
     - name: Upload built image as artifact for X86
       uses: actions/upload-artifact@v2
       with:
@@ -36,6 +38,11 @@ jobs:
       with:
         name: Phoenix AArch64
         path: ./build/aarch64/phoenix.img
+    - name: Upload built image as artifact for AArch64
+      uses: actions/upload-artifact@v2
+      with:
+        name: Phoenix Limine
+        path: ./build/x86_limine/phoenix.img
 
 
 

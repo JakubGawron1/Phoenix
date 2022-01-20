@@ -50,6 +50,13 @@
 - Change the size of `splash.bmp`
 - Add a special image on which the changes in BMP display were tested
 
-## 20.01.22 (reapir path)
+## 20.01.2022 (reapir path)
 - Fix `system_table` mutability
 - Fix Github workflow
+
+## 20.01.2022 (part 2)
+- Add a working chainloader `Limine`
+- Add the ability to select a bootloader (X86 only) `phoenix-builder`
+- Remove artifacts from workflows for `MacOS` and `Windows`
+- Add a new artifact to `build.yml` for build with `limine`
+

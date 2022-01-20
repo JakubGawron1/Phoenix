@@ -16,6 +16,9 @@ const BUNDLED_DIR: &str = "bundled";
 const PREBUILT_OVMF_URL: &str =
     "https://jakubgawron1.github.io/OVMF-nightly/bin/";
 
+const LIMINE_GITHUB_URL: &str = "https://github.com/limine-bootloader/limine";
+const LIMINE_RELEASE_BRANCH: &str = "latest-binary";
+
 
 const OVMF_FILES: [&str; 2] = [
     "DEBUGX64_OVMF.fd",
@@ -27,6 +30,23 @@ pub enum BuildType {
     Debug,
     Release,
 }
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum Bootloader{
+    Limine,
+    Phoenix,
+}
+impl From<Option<String>> for Bootloader {
+    fn from(bootloader: Option<String>) -> Self{
+        match bootloader.as_deref() {
+            Some("phoenix") | Some("Phoenix") => Self::Phoenix,
+            Some("limine") => Self::Limine,
+            Some(_v) => Self::Phoenix,
+            None => panic!("Please specific architetcure"),
+
+        }
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Arch {
     AArch64,
@@ -54,6 +74,9 @@ enum PhoenixCliCommand{
 
         #[structopt(long)]
         arch: Option<String>,
+
+        #[structopt(long)]
+        bootloader: Option<String>
     },
 
     Build{
@@ -63,6 +86,9 @@ enum PhoenixCliCommand{
 
         #[structopt(long)]
         arch: Option<String>,
+
+        #[structopt(long)]
+        bootloader: Option<String>
     },
     Update,
     Format,
@@ -86,9 +112,12 @@ async fn main() -> anyhow::Result<()> {
             PhoenixCliCommand::Run{
                 release,
                 arch,
+                bootloader,
             } => {
                 
                 let arch = Arch::from(arch);
+
+                let bootloader = Bootloader::from(bootloader);
 
                 let build_type = if release {
                     BuildType::Release
@@ -100,20 +129,23 @@ async fn main() -> anyhow::Result<()> {
 
                 kernel::build_kernel(arch, build_type);
 
-                pack::package_files(arch, build_type).unwrap();
+                pack::package_files(arch, build_type, bootloader).unwrap();
 
                 let now = Instant::now().elapsed();
                 
                 println!("Success built in {:?}", now);
 
-                qemu::run_qemu(arch).unwrap();
+                qemu::run_qemu(arch, bootloader).unwrap();
             }
             PhoenixCliCommand::Build{
                 release,
                 arch,
+                bootloader,
             } => {
                 
                 let arch = Arch::from(arch);
+
+                let bootloader = Bootloader::from(bootloader);
 
                 let build_type = if release {
                     BuildType::Release
@@ -122,11 +154,13 @@ async fn main() -> anyhow::Result<()> {
                     BuildType::Debug
                 };
 
+                bundled::update_limine().await.unwrap();
+
                 boot::build_bootloader(arch, build_type);
 
                 kernel::build_kernel(arch, build_type);
 
-                pack::package_files(arch, build_type).unwrap();
+                pack::package_files(arch, build_type, bootloader).unwrap();
 
                 let now = Instant::now().elapsed();
 

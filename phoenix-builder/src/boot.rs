@@ -13,6 +13,7 @@ pub fn build_bootloader(arch: Arch, build_type: BuildType){
 
 
     let  target_triple = format!("{}-unknown-uefi", target_arch);
+    println!("Build Phoenix bootloader for {}",target_arch.to_uppercase());
 
     build_command.current_dir("phoenix-bootloader");
 

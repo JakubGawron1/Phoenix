@@ -1,22 +1,27 @@
-use crate::{Arch, BUNDLED_DIR};
+use crate::{Arch, BUNDLED_DIR, Bootloader};
 
 use std::process::Command;
 use std::error::Error;
 
-pub fn run_qemu(arch: Arch)-> Result<(), Box<dyn Error>> {
+pub fn run_qemu(arch: Arch, bootloader: Bootloader)-> Result<(), Box<dyn Error>> {
     let mut project_arch: &str = "x86_64";
+    let mut build_dir: &str = "x86_64";
     let mut image: &str = "DEBUGX64_OVMF.fd";
 
     if arch == Arch::AArch64{
         project_arch = "aarch64";
+        build_dir = "aarch64";
         image = "DEBUGAARCH64_QEMU_EFI.fd";
+    }
+    if bootloader == Bootloader::Limine{
+        build_dir = "x86_limine";
     }
 
     let  qemu_binary = format!("qemu-system-{}", project_arch);
 
     let uefi_image = format!("{}/ovmf/{}",BUNDLED_DIR, image);
 
-    let phoenix_image = format!("build/{}/phoenix.img",project_arch);
+    let phoenix_image = format!("build/{}/phoenix.img",build_dir);
 
     let phoenix_image_command = format!("format=raw,file={}", phoenix_image);
 

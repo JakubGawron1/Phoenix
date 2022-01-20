@@ -59,7 +59,7 @@ fn fill_color(gop: &mut GraphicsOutput) {
 
 fn draw_bmp(gop: &mut GraphicsOutput) {
     // Embed a BMP.
-    let bmp_data = include_bytes!("../../../../other/splash.bmp");
+    let bmp_data = crate::SPLASH_INTRO;
   
     // Parse the BMP data.
     let bmp = Bmp::<Rgb888>::from_slice(bmp_data).unwrap();

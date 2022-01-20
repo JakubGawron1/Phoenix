@@ -10,6 +10,7 @@ pub fn build_kernel(arch: Arch, build_type: BuildType){
     if arch == Arch::AArch64{
         target_arch = "aarch64";
     }
+    println!("Build Phoenix kernel for {}", target_arch.to_uppercase());
 
     let target_directory: &str = ".cargo/";
 
