@@ -60,3 +60,16 @@
 - Remove artifacts from workflows for `MacOS` and `Windows`
 - Add a new artifact to `build.yml` for build with `limine`
 
+## 24.01.2022 (repair path)
+- Fix `rust-analyzer` warnings by adding a target to `config.toml`
+- Change the system image directories for `release` and `debug` profiles to make it easier to distinguish in what mode it was built
+- Due to changes in saving images (their locations) fix github workflow (`build.yml`)
+- Now you don't need to pass the `--bootloader` flag when building with `Phoenix Bootloader` without a `Limine` chainloader
+- Make it impossible to build `AArch64 Phoenix` with `Limine`
+
+## 24.01.2022
+- Change the splash intro to show at the beginning (`phoenix-bootloader`)
+- Center the text on screen (`phoenix-bootloader`) (`X86_64` architecture only)
+- Add `--nographic` flag, now when you use this flag you won't see `Qemu` GUI (`phoenix-builder`)
+- Termux support added
+- Add `termux.sh` file to install tools on `Termux`

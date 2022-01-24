@@ -3,11 +3,12 @@
 
 use core::panic::PanicInfo;
 
+#[no_mangle]
 extern "C" fn main_kernel()-> !{
     loop{}
 }
 
 #[panic_handler]
-fn panic(info: &PanicInfo)-> !{
+fn panic(_info: &PanicInfo)-> !{
     loop{}
 }

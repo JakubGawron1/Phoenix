@@ -60,8 +60,6 @@ pub fn clean() -> Result<(), Box<dyn Error>> {
 
 pub async fn update_limine() -> Result<(), Box<dyn Error>> {
     let limine_out_dir = Path::new(BUNDLED_DIR).join("limine");
-    let mut remove_in_windows = Command::new("remove_win.bat");
-
         xshell::rm_rf("bundled/limine").unwrap();
 
         fs::create_dir_all(&limine_out_dir)?;

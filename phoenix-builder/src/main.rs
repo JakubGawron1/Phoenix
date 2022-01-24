@@ -30,6 +30,14 @@ pub enum BuildType {
     Debug,
     Release,
 }
+
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum Graphic {
+    Nographic,
+    Default,
+
+}
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Bootloader{
     Limine,
@@ -40,8 +48,8 @@ impl From<Option<String>> for Bootloader {
         match bootloader.as_deref() {
             Some("phoenix") | Some("Phoenix") => Self::Phoenix,
             Some("limine") => Self::Limine,
-            Some(_v) => Self::Phoenix,
-            None => panic!("Please specific architetcure"),
+            Some(_v) => panic!("This bootloader isn't supported"),
+            None => Self::Phoenix,
 
         }
     }
@@ -73,6 +81,9 @@ enum PhoenixCliCommand{
         release: bool,
 
         #[structopt(long)]
+        nographic: bool,
+
+        #[structopt(long)]
         arch: Option<String>,
 
         #[structopt(long)]
@@ -93,7 +104,8 @@ enum PhoenixCliCommand{
     Update,
     Format,
     Clean,
-
+    Gitpod,
+    Termux,
 }
 
 #[derive(Debug, StructOpt)]
@@ -111,6 +123,7 @@ async fn main() -> anyhow::Result<()> {
         Some(command) => match command{
             PhoenixCliCommand::Run{
                 release,
+                nographic,
                 arch,
                 bootloader,
             } => {
@@ -118,6 +131,17 @@ async fn main() -> anyhow::Result<()> {
                 let arch = Arch::from(arch);
 
                 let bootloader = Bootloader::from(bootloader);
+
+                let graphic = if nographic {
+                    Graphic::Nographic
+                }
+                else{
+                    Graphic::Default
+                };
+
+                if arch == Arch::AArch64 && bootloader == Bootloader::Limine{
+                    panic!("Limine dont't support AArch64 architecture");
+                }
 
                 let build_type = if release {
                     BuildType::Release
@@ -135,7 +159,7 @@ async fn main() -> anyhow::Result<()> {
                 
                 println!("Success built in {:?}", now);
 
-                qemu::run_qemu(arch, bootloader).unwrap();
+                qemu::run_qemu(arch, graphic, bootloader, build_type).unwrap();
             }
             PhoenixCliCommand::Build{
                 release,
@@ -146,6 +170,10 @@ async fn main() -> anyhow::Result<()> {
                 let arch = Arch::from(arch);
 
                 let bootloader = Bootloader::from(bootloader);
+
+                if arch == Arch::AArch64 && bootloader == Bootloader::Limine{
+                    panic!("Limine dont't support AArch64 architecture");
+                }
 
                 let build_type = if release {
                     BuildType::Release
@@ -170,10 +198,19 @@ async fn main() -> anyhow::Result<()> {
                 
             }
             PhoenixCliCommand::Format => {
-                println!("Heloo world");
+                todo!();
             }
             PhoenixCliCommand::Clean => {
+                println!("Clean build directories");
                 bundled::clean().unwrap();
+            }
+            PhoenixCliCommand::Gitpod => {
+                println!("Setup Gitpod");
+                tools::gitpod();
+            }
+            PhoenixCliCommand::Termux => {
+                println!("Setup Termux Linux");
+                tools::termux();
             }
         },
         None => {}

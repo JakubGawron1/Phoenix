@@ -1,13 +1,12 @@
 use alloc::vec::Vec;
 
 use uefi::prelude::*;
-use uefi::proto::console::gop::{BltOp, BltPixel, BltRegion, FrameBuffer, GraphicsOutput, PixelFormat};
+use uefi::proto::console::gop::{BltOp, BltPixel, BltRegion, GraphicsOutput};
 use uefi::table::boot::BootServices;
-use embedded_graphics::pixelcolor::{Rgb565, RgbColor};
+use embedded_graphics::pixelcolor::{Rgb888, RgbColor};
 use tinybmp::Bmp;
-use embedded_graphics::pixelcolor::Rgb888;
 
-pub fn test(image: Handle, bt: &BootServices) {
+pub fn test(_image: Handle, bt: &BootServices) {
     log::info!("Running graphics output protocol test");    
 
     if let Ok(gop) = bt.locate_protocol::<GraphicsOutput>() {
@@ -19,7 +18,11 @@ pub fn test(image: Handle, bt: &BootServices) {
         draw_bmp(gop);
 
         // Pause for 10 seconds to allow time to admire the result.
-        bt.stall(10_000_000);     
+        bt.stall(10_000_000); 
+        
+        
+        
+       // set_graphics_mode(gop);
 
     } else {
         // No tests can be run.
@@ -83,4 +86,4 @@ fn draw_bmp(gop: &mut GraphicsOutput) {
         dims: (width, height),
     })
     .expect_success("Failed to draw bmp");
-  }
+}

@@ -149,7 +149,7 @@ pub fn debug_package_files() -> Result<(), Box<dyn Error>> {
     let efi_file = Path::new("phoenix-bootloader/target/x86_64-unknown-uefi/debug/phoenix-bootloader.efi");
 
     let kernel_file = Path::new("phoenix-kernel/target/x86_64-phoenix/debug/phoenix-kernel");
-    let out_path = Path::new("build").join("x86_limine");
+    let out_path = Path::new("build").join("x86_limine").join("debug");
 
     let limine_cfg = Path::new("phoenix-kernel/.cargo/limine.cfg");
     let limine_path = Path::new("bundled/limine/BOOTX64.EFI");
@@ -172,7 +172,7 @@ pub fn release_package_files() -> Result<(), Box<dyn Error>> {
     let limine_path = Path::new("bundled/limine/BOOTX64.EFI");
     let kernel_file = Path::new("phoenix-kernel/target/x86_64-phoenix/release/phoenix-kernel");
     let limine_cfg = Path::new("phoenix-kernel/.cargo/limine.cfg");
-    let out_path = Path::new("build").join("x86_limine");
+    let out_path = Path::new("build").join("x86_limine").join("release");
 
     let fat_path = out_path.join("phoenix.fat");
     let img_path = out_path.join("phoenix.img");

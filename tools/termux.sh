@@ -1,0 +1,1 @@
+apt update -y && apt upgrade -y && apt install qemu qemu-system-x86 qemu-system-arm make -y

@@ -33,17 +33,17 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Phoenix X86
-        path: ./build/x86_64/phoenix.img
+        path: ./build/x86_64/release/phoenix.img
     - name: Upload built image as artifact for AArch64
       uses: actions/upload-artifact@v2
       with:
         name: Phoenix AArch64
-        path: ./build/aarch64/phoenix.img
+        path: ./build/aarch64/release/phoenix.img
     - name: Upload built image as artifact for Phoenix Limine
       uses: actions/upload-artifact@v2
       with:
         name: Phoenix Limine
-        path: ./build/x86_limine/phoenix.img
+        path: ./build/x86_limine/release/phoenix.img
 
 
 
