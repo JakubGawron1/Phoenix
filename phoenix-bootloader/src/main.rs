@@ -53,10 +53,14 @@ extern "C" fn efi_main(
   mut system_table: SystemTable<Boot>, 
 )-> Status{
     uefi_services::init(&mut system_table).expect_success("Failed to initialize utilities");
-   
-    system_table.stdout().clear().expect("Failed to clean screen").unwrap();
- 
-    arch::main(image, &mut system_table);
+    
+    system_table.stdout().clear().expect_success("Failed to clean screen");
+
+    writeln!(system_table.stdout(), "{}", ASCII_IMAGE);
+    writeln!(system_table.stdout(), "{}", ASCII_INTRO);
+    writeln!(system_table.stdout(), "Hello from PhoenixOS v0.0.0");
+
+    check_revision(system_table.uefi_revision(), &mut system_table);
 
     Status::SUCCESS.is_success();    
     
@@ -69,8 +73,10 @@ pub fn check_revision(rev: uefi::table::Revision, system_table: &mut SystemTable
   let mut buf = String::new();
     system_table.firmware_vendor().as_str_in_buf(&mut buf).unwrap();
 
+  let firm_rev: uefi::table::Revision = system_table.firmware_revision();
+
   writeln!(system_table.stdout(),"INFO: UEFI {}.{}", major, minor / 10).unwrap();
-  writeln!(system_table.stdout(),"INFO: Firmware Vendor: {}", buf.as_str()).unwrap();
+  writeln!(system_table.stdout(),"INFO: Firmware Vendor: {} v{:?}", buf.as_str(), firm_rev).unwrap();
 
   assert!(major >= 2, "Running on an old, unsupported version of UEFI");
   assert!(

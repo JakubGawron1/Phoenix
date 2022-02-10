@@ -1,2 +1,3 @@
 [alias]
 kmake = "run --release --manifest-path ./phoenix-builder/Cargo.toml --"
+kupdate = "run --release --manifest-path ./phoenix-builder/Cargo.toml --bin bundled"
