@@ -74,7 +74,11 @@
 - Termux support added
 - Add `termux.sh` file to install tools on `Termux`
 
-## 10.02.2022
+## 10.02.2022 (part 1)
 - Remove splash intro, because it isn't efficient (`phoenix-bootloader`)
 - Start writing bootloader with a new approach
 - Add GPG key to be able to create verified commits
+
+## 10.02.2022 (part 2)
+- Start working on your build documentation
+- Finish writing the build instructions for Linux
